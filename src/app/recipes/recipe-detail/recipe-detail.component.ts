@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Recipe } from '../recipe.model';
 import { RecipeService } from '../recipe.service';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -13,9 +13,13 @@ export class RecipeDetailComponent implements OnInit {
   id: number;
   constructor(
     private recipeService: RecipeService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
-
+  onDeleteRecipe() {
+    this.recipeService.deleteRecipe(this.id);
+    this.router.navigate(['/recipes']);
+  }
   addInredientToList() {
     this.recipeService.addIngToList(this.selectedRecipeElement.ingredients);
   }
