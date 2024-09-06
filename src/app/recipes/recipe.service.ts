@@ -9,19 +9,19 @@ export class RecipeService {
   recipeChanges = new Subject<Recipe[]>();
   constructor(private shoppingListService: ShoppingListService) {}
 
-  recipes: Recipe[] = [
-    new Recipe(
-      'Test',
-      'Test',
-      'https://mommyshomecooking.com/wp-content/uploads/2018/03/Easy-Whole-30-Chicken-and-Asparagus-Skillet-1.jpg',
-      [new Ingredient('bread', 5), new Ingredient('sausage', 5)]
-    ),
-    new Recipe(
-      'Jest',
-      'Test',
-      'https://mommyshomecooking.com/wp-content/uploads/2018/03/Easy-Whole-30-Chicken-and-Asparagus-Skillet-1.jpg',
-      []
-    ),
+  private recipes: Recipe[] = [
+    // new Recipe(
+    //   'Test',
+    //   'Test',
+    //   'https://mommyshomecooking.com/wp-content/uploads/2018/03/Easy-Whole-30-Chicken-and-Asparagus-Skillet-1.jpg',
+    //   [new Ingredient('bread', 5), new Ingredient('sausage', 5)]
+    // ),
+    // new Recipe(
+    //   'Jest',
+    //   'Test',
+    //   'https://mommyshomecooking.com/wp-content/uploads/2018/03/Easy-Whole-30-Chicken-and-Asparagus-Skillet-1.jpg',
+    //   []
+    // ),
   ];
   getRecipe() {
     return this.recipes.slice();
@@ -45,6 +45,10 @@ export class RecipeService {
   }
   deleteRecipe(index: number) {
     this.recipes.splice(index, 1);
+    this.recipeChanges.next(this.recipes.slice());
+  }
+  setRecipe(recipes: Recipe[]) {
+    this.recipes = recipes;
     this.recipeChanges.next(this.recipes.slice());
   }
 }
